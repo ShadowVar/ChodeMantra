@@ -5,7 +5,7 @@
 > **⚠️ Disclaimer**: ChodeMantra is intended for **educational use only** to explore typing automation. Unauthorized use in proctored exams or restricted environments may violate academic integrity policies or terms of service. Always use responsibly and ethically.
 
 ---
-![ChodeMantra UI Screenshot](screenshots/ChodeManta_UI.png)
+![ChodeMantra UI Screenshot](screenshots/ChodeManta-UI.png)
 ## ✨ Features
 
 - **Human-Like Typing**  
