@@ -1,0 +1,144 @@
+@import url('https://fonts.googleapis.com/css2?family=Courier+Prime:wght@700&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Courier New', Courier, monospace;
+    background-color: #1e1e1e;
+    color: white;
+    text-align: center;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh; /* Ensures content is centered vertically */
+}
+
+/* Logo Styling */
+.logo {
+    font-size: 36px;
+    font-family: 'Courier New', Courier, monospace;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 20px;
+    letter-spacing: 2px;
+}
+
+/* Increase size of C and T */
+.logo .big-letter {
+    font-size: 50px;  /* Larger size for "C" and "T" */
+    font-weight: bold;
+}
+
+/* Replace "O" with an image */
+.logo-image {
+    width: 35px;  /* Adjust size of the image */
+    height: 35px;
+    vertical-align: middle;
+    margin: 0 5px;
+}
+
+
+.container {
+    width: 450px;
+    padding: 20px;
+    background: #292929;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.1);
+}
+
+
+.tabs {
+    display: flex;
+    justify-content: space-around;
+    margin-bottom: 15px;
+}
+
+.tab-button {
+    background: #444;
+    border: none;
+    color: white;
+    padding: 10px;
+    cursor: pointer;
+    flex: 1;
+    transition: 0.3s;
+    font-size: 16px;
+    font-family: 'Courier New', Courier, monospace;
+}
+
+.tab-button:hover, .tab-button.active {
+    background: #0078d7;
+}
+
+
+.tab-content {
+    position: relative;
+}
+
+.snippet {
+    width: 100%;
+    height: 100px;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    background: #333;
+    color: white;
+    font-size: 14px;
+    font-family: 'Courier New', Courier, monospace;
+}
+
+.hidden {
+    display: none;
+}
+
+
+#saveButton {
+    background: #0078d7;
+    color: white;
+    padding: 10px;
+    border: none;
+    cursor: pointer;
+    width: 100%;
+    margin-top: 15px;
+    font-size: 16px;
+    border-radius: 5px;
+    transition: 0.3s;
+    font-family: 'Courier New', Courier, monospace;
+}
+
+#saveButton:hover {
+    background: #0057a3;
+}
+
+
+#status {
+    margin-top: 10px;
+    font-size: 14px;
+    color: #aaa;
+    font-family: 'Courier New', Courier, monospace;
+}
+.footer {
+    position: absolute;
+    bottom: 10px;
+    width: 100%;
+    text-align: center;
+    font-size: 12px;
+    color: #aaa;
+    font-family: 'Courier New', Courier, monospace;
+}
+
+.footer p {
+    margin: 0;
+}
+
+.beta-message {
+    font-style: italic;
+    color: #ffcc00;
+}
