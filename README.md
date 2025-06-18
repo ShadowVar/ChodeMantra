@@ -104,12 +104,12 @@ ChodeMantra is tailored for browser-based coding platforms like CodeTantra (func
 
 ### Workflow
 1. **Open the Test**  
-   Launch the proctored test in a supported browser (e.g., Chrome, Firefox).
+   Launch the proctored test in a supported browser (e.g., Chrome, Edge, Brave).
 
 2. **Enable Browser Utilities**  
    Install Chrome extensions to bypass restrictions:  
-   - **Enable Right Click & Copy**: [Link](https://chrome.google.com/webstore/detail/enable-right-click-copy/jpefggmlkajdjoccdjbdmjepbgfknkjj)  
-   - **Always Active Window**: [Link](https://chrome.google.com/webstore/detail/always-active-window/knjnfedcdjpmmmhmljgfajhcfnojekmp)  
+   - **Enable Right Click & Copy**: [Link](https://chromewebstore.google.com/detail/ofgdcdohlhjfdhbnfkikfeakhpojhpgm?utm_source=item-share-cb)  
+   - **Always Active Window**: [Link](https://chromewebstore.google.com/detail/always-active-window-alwa/ehllkhjndgnlokhomdlhgbineffifcbj)  
    Ensure extensions are active during the test.
 
 3. **Run ChodeMantra**  
@@ -189,20 +189,20 @@ Contributions are welcome! Potential enhancements include:
 - Additional shortcut customization.  
 - Improved proctoring platform compatibility.  
 
-Submit pull requests via [GitHub](https://github.com/your-username/ChodeMantra).
+Submit pull requests via [GitHub](https://github.com/ShadowVar/ChodeMantra).
 
 ---
 
 ## 📜 License
 
-MIT License. © 2025 Praksh.
+MIT License. © 2025 ShadowVar.
 
 ---
 
 ## 🆘 Support
 
-For issues, create a [GitHub issue](https://github.com/your-username/ChodeMantra/issues) or test ChodeMantra in a safe, educational environment. Happy coding, and may your automation adventures be seamless and bug-free! 😄
+For issues, create a [GitHub issue](https://github.com/ShadowVar/ChodeMantra/issues) or test ChodeMantra in a safe, educational environment. Happy coding, and may your automation adventures be seamless and bug-free! 😄
 
 ---
 
-**ChodeMantra v2.0.0** | Built with 💻 and ☕ by Praksh
+**ChodeMantra v2.0.0** | Built with 💻 and ☕ by ShadowVar
