@@ -22,22 +22,57 @@
     "electron-packager": "^17.1.2",
     "electron-rebuild": "^3.2.9"
   },
-  "build": {
-    "appId": "com.Chodemantra.app",
-    "productName": "Chodemantra",
-    "files": [
-      "**/*"
-    ],
-    "directories": {
-      "output": "dist"
+"build": {
+  "appId": "com.Chodemantra.app",
+  "productName": "Chodemantra",
+  "files": [
+    "index.html",
+    "index.js",
+    "rendered.js",
+    "styles.css",
+    "type_snippet.py",
+    "sun.ico",
+    "sun.png",
+    "requirements.txt"
+  ],
+  "extraResources": [
+    {
+      "from": "./type_snippet.py",
+      "to": "type_snippet.py"
     },
-    "win": {
-      "target": "nsis",
-      "icon": "sun.ico"
+    {
+      "from": "./sun.ico",
+      "to": "sun.ico"
     },
-    "nsis": {
-      "oneClick": false,
-      "allowToChangeInstallationDirectory": true
+    {
+      "from": "./sun.png",
+      "to": "sun.png"
     }
+  ],
+  "directories": {
+    "output": "dist"
+  },
+  "win": {
+    "target": [
+      {
+        "target": "nsis",
+        "arch": [
+          "x64",
+          "ia32"
+        ]
+      }
+    ],
+    "icon": "sun.ico"
+  },
+  "nsis": {
+    "oneClick": false,
+    "allowToChangeInstallationDirectory": true,
+    "installerIcon": "sun.ico",
+    "uninstallerIcon": "sun.ico",
+    "installerHeaderIcon": "sun.ico",
+    "createDesktopShortcut": true,
+    "createStartMenuShortcut": true,
+    "shortcutName": "Chodemantra"
   }
+}
 }
