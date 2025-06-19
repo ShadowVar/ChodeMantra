@@ -12,14 +12,14 @@ body {
     color: white;
     text-align: center;
     margin: 0;
-    padding: 0;
+    padding: 20px; 
+    min-height: 100vh; 
+    position: relative;
     display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh; /* Ensures content is centered vertically */
+    justify-content: center; 
+    align-items: center; 
 }
 
-/* Logo Styling */
 .logo {
     font-size: 36px;
     font-family: 'Courier New', Courier, monospace;
@@ -31,20 +31,17 @@ body {
     letter-spacing: 2px;
 }
 
-/* Increase size of C and T */
 .logo .big-letter {
-    font-size: 50px;  /* Larger size for "C" and "T" */
+    font-size: 50px;
     font-weight: bold;
 }
 
-/* Replace "O" with an image */
 .logo-image {
-    width: 35px;  /* Adjust size of the image */
+    width: 35px;
     height: 35px;
     vertical-align: middle;
     margin: 0 5px;
 }
-
 
 .container {
     width: 450px;
@@ -52,8 +49,10 @@ body {
     background: #292929;
     border-radius: 10px;
     box-shadow: 0 0 10px rgba(255, 255, 255, 0.1);
+    position: relative;
+    z-index: 1;
+    margin: 0 auto; 
 }
-
 
 .tabs {
     display: flex;
@@ -77,7 +76,6 @@ body {
     background: #0078d7;
 }
 
-
 .tab-content {
     position: relative;
 }
@@ -92,12 +90,12 @@ body {
     color: white;
     font-size: 14px;
     font-family: 'Courier New', Courier, monospace;
+    z-index: 1;
 }
 
 .hidden {
     display: none;
 }
-
 
 #saveButton {
     background: #0078d7;
@@ -111,22 +109,93 @@ body {
     border-radius: 5px;
     transition: 0.3s;
     font-family: 'Courier New', Courier, monospace;
+    z-index: 1;
 }
 
 #saveButton:hover {
     background: #0057a3;
 }
 
+#shortcutsButton {
+    background: #444;
+    border: none;
+    color: white;
+    padding: 8px;
+    cursor: pointer;
+    font-size: 14px;
+    border-radius: 5px;
+    transition: 0.3s;
+    font-family: 'Courier New', Courier, monospace;
+    position: absolute;
+    top: 20px; 
+    right: 20px; 
+    width: 40px;
+    height: 40px;
+    z-index: 2;
+}
+
+#shortcutsButton:hover, #shortcutsButton.active {
+    background: #0078d7;
+}
 
 #status {
     margin-top: 10px;
     font-size: 14px;
     color: #aaa;
     font-family: 'Courier New', Courier, monospace;
+    z-index: 1;
 }
+
+.modal {
+    display: none;
+    position: fixed; 
+    top: 20px; 
+    right: 70px; 
+    width: 250px;
+    max-height: 400px; 
+    overflow-y: auto; 
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 3;
+    border-radius: 5px;
+}
+
+.modal-content {
+    background: #292929;
+    padding: 20px;
+    border-radius: 5px;
+    text-align: left;
+    position: relative;
+}
+
+.close {
+    color: #aaa;
+    float: right;
+    font-size: 24px;
+    font-weight: bold;
+    cursor: pointer;
+    z-index: 4;
+}
+
+.close:hover,
+.close:focus {
+    color: #fff;
+    text-decoration: none;
+}
+
+#shortcutsList {
+    list-style: none;
+    padding: 0;
+    color: #fff;
+    font-family: 'Courier New', Courier, monospace;
+}
+
+#shortcutsList li {
+    margin: 10px 0;
+}
+
 .footer {
     position: absolute;
-    bottom: 10px;
+    bottom: 20px; 
     width: 100%;
     text-align: center;
     font-size: 12px;
