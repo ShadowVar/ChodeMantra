@@ -95,9 +95,9 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          tag_name: ${{ github.event_name == 'workflow_dispatch' && github.inputs.tag_name || github.ref }}
-          release_name: ${{ github.event_name == 'workflow_dispatch' && github.inputs.release_title || format('Release {0}', github.ref) }}
-          body: ${{ github.event_name == 'workflow_dispatch' && github.inputs.release_description || format('ChodeMantra Release {0}', github.ref) }}
+          tag_name: ${{ github.event_name == 'workflow_dispatch' && github.inputs.tag_name || github.ref_name }}
+          release_name: ${{ github.event_name == 'workflow_dispatch' && github.inputs.release_title || format('Release {0}', github.ref_name) }}
+          body: ${{ github.event_name == 'workflow_dispatch' && github.inputs.release_description || format('ChodeMantra Release {0}', github.ref_name) }}
           prerelease: ${{ github.event_name == 'workflow_dispatch' && github.event.inputs.prerelease || false }}
           draft: false
 
