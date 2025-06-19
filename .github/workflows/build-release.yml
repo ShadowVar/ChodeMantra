@@ -98,7 +98,7 @@ jobs:
           tag_name: ${{ github.event_name == 'workflow_dispatch' && github.inputs.tag_name || github.ref }}
           release_name: ${{ github.event_name == 'workflow_dispatch' && github.inputs.release_title || format('Release {0}', github.ref) }}
           body: ${{ github.event_name == 'workflow_dispatch' && github.inputs.release_description || format('ChodeMantra Release {0}', github.ref) }}
-          prerelease: ${{ github.event..inputs.prerelease || false }}
+          prerelease: ${{ github.event_name == 'workflow_dispatch' && github.event.inputs.prerelease || false }}
           draft: false
 
       - name: Upload Normal .exe
