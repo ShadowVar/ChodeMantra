@@ -68,7 +68,7 @@ ChodeMantra replicates natural typing patterns to create a realistic simulation,
 ### Steps
 1. **Clone the Repository**  
    ```bash
-   git clone https://github.com/your-username/ChodeMantra.git
+   git clone https://github.com/ShadowVar/ChodeMantra.git
    cd ChodeMantra
    ```
 
