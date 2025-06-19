@@ -1,0 +1,116 @@
+```yaml
+name: Build and Release ChodeMantra Executables
+
+# Triggers: Run on tag push (e.g., v2.1.0) or manual dispatch
+on:
+  push:
+    tags:
+      - 'v*'
+  workflow_dispatch:
+    inputs:
+      tag_name:
+        description: 'Tag name (e.g., v2.1.0)'
+        required: true
+      release_title:
+        description: 'Release title'
+        required: true
+      release_description:
+        description: 'Release description'
+        required: true
+        type: multiline
+      prerelease:
+        description: 'Set as pre-release'
+        required: true
+        type: boolean
+        default: false
+
+jobs:
+  build-and-release:
+    runs-on: windows-latest
+    permissions:
+      contents: write # Required for creating releases and uploading assets
+
+    steps:
+      # Check out repository
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      # Set up Node.js
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20.17.0' # Matches ChodeMantra's recommended version
+
+      # Install Node.js dependencies
+      - name: Install Node.js dependencies
+        run: npm install
+
+      # Set up Python 3.13
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.13'
+          architecture: 'x64'
+
+      # Install Python dependencies
+      - name: Install Python dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install pyinstaller
+          pip install -r requirements.txt
+
+      # Build normal .exe (requires Python pre-installed)
+      - name: Build normal .exe
+        run: npm run dist
+
+      # Build Python-embedded .exe
+      - name: Build Python-embedded .exe
+        run: |
+          pyinstaller --onefile `
+            --add-data "sun.ico;." `
+            --add-data "sun.png;." `
+            --add-data "index.html;." `
+            --add-data "index.js;." `
+            --add-data "rendered.js;." `
+            --add-data "styles.css;." `
+            --add-data "requirements.txt;." `
+            --icon sun.ico `
+            --name ChodeMantra-Embedded `
+            type_snippet.py
+        shell: powershell
+
+      # Create release
+      - name: Create Release
+        id: create_release
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: ${{ github.event_name == 'workflow_dispatch' && github.inputs.tag_name || github.ref }}
+          release_name: ${{ github.event_name == 'workflow_dispatch' && github.inputs.release_title || format('Release {0}', github.ref) }}
+          body: ${{ github.event_name == 'workflow_dispatch' && github.inputs.release_description || format('ChodeMantra Release {0}', github.ref) }}
+          prerelease: ${{ github.event_name == 'workflow_dispatch' && github.inputs.prerelease || false }}
+          draft: false
+
+      # Upload normal .exe
+      - name: Upload Normal .exe
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: ./dist/ChodeMantra-${{ github.event_name == 'workflow_dispatch' && github.inputs.tag_name || github.ref_name }}.exe
+          asset_name: ChodeMantra-${{ github.event_name == 'workflow_dispatch' && github.inputs.tag_name || github.ref_name }}.exe
+          asset_content_type: application/octet-stream
+
+      # Upload Python-embedded .exe
+      - name: Upload Python-Embedded .exe
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: ./dist/ChodeMantra-Embedded.exe
+          asset_name: ChodeMantra-Embedded-${{ github.event_name == 'workflow_dispatch' && github.inputs.tag_name || github.ref_name }}.exe
+          asset_content_type: application/octet-stream
+```
