@@ -1,7 +1,7 @@
 ```yaml
 name: Build and Release ChodeMantra Executables
 
-# Triggers: Run on tag push (e.g., v2.1.0) or manual dispatch
+# Triggers: Run on tag push (e.g., v2.1.0) or manual dispatch.
 on:
   push:
     tags:
