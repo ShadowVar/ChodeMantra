@@ -1,7 +1,5 @@
-```yaml
 name: Build and Release ChodeMantra Executables
 
-# Triggers: Run on tag push (e.g., v2.1.0) or manual dispatch.
 on:
   push:
     tags:
@@ -28,42 +26,35 @@ jobs:
   build-and-release:
     runs-on: windows-latest
     permissions:
-      contents: write # Required for creating releases and uploading assets
+      contents: write
 
     steps:
-      # Check out repository
       - name: Checkout code
         uses: actions/checkout@v4
 
-      # Set up Node.js
       - name: Set up Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '20.17.0' # Matches ChodeMantra's recommended version
+          node-version: '20.17.0'
 
-      # Install Node.js dependencies
       - name: Install Node.js dependencies
         run: npm install
 
-      # Set up Python 3.13
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
           python-version: '3.13'
           architecture: 'x64'
 
-      # Install Python dependencies
       - name: Install Python dependencies
         run: |
           python -m pip install --upgrade pip
           pip install pyinstaller
           pip install -r requirements.txt
 
-      # Build normal .exe (requires Python pre-installed)
       - name: Build normal .exe
         run: npm run dist
 
-      # Build Python-embedded .exe
       - name: Build Python-embedded .exe
         run: |
           pyinstaller --onefile `
@@ -79,7 +70,6 @@ jobs:
             type_snippet.py
         shell: powershell
 
-      # Create release
       - name: Create Release
         id: create_release
         uses: actions/create-release@v1
@@ -92,7 +82,6 @@ jobs:
           prerelease: ${{ github.event_name == 'workflow_dispatch' && github.inputs.prerelease || false }}
           draft: false
 
-      # Upload normal .exe
       - name: Upload Normal .exe
         uses: actions/upload-release-asset@v1
         env:
@@ -103,7 +92,6 @@ jobs:
           asset_name: ChodeMantra-${{ github.event_name == 'workflow_dispatch' && github.inputs.tag_name || github.ref_name }}.exe
           asset_content_type: application/octet-stream
 
-      # Upload Python-embedded .exe
       - name: Upload Python-Embedded .exe
         uses: actions/upload-release-asset@v1
         env:
@@ -113,4 +101,3 @@ jobs:
           asset_path: ./dist/ChodeMantra-Embedded.exe
           asset_name: ChodeMantra-Embedded-${{ github.event_name == 'workflow_dispatch' && github.inputs.tag_name || github.ref_name }}.exe
           asset_content_type: application/octet-stream
-```
