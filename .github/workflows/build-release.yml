@@ -37,6 +37,10 @@ jobs:
         with:
           node-version: '20.17.0'
 
+      - name: Get package version
+        run: echo "PACKAGE_VERSION=$(node -p "require('./package.json').version")" >> $env:GITHUB_ENV
+        shell: powershell
+
       - name: Install Node.js dependencies
         run: npm install
 
@@ -75,7 +79,7 @@ jobs:
       - name: Verify build artifacts
         run: |
           dir dist
-          if (!(Test-Path "dist/Chodemantra Setup ${{ github.event_name == 'workflow_dispatch' && github.inputs.tag_name || github.ref_name }}.exe")) { 
+          if (!(Test-Path "dist/Chodemantra Setup ${{ env.PACKAGE_VERSION }}.exe")) { 
             Write-Error "Normal .exe not found"
             exit 1
           }
@@ -94,7 +98,7 @@ jobs:
           tag_name: ${{ github.event_name == 'workflow_dispatch' && github.inputs.tag_name || github.ref }}
           release_name: ${{ github.event_name == 'workflow_dispatch' && github.inputs.release_title || format('Release {0}', github.ref) }}
           body: ${{ github.event_name == 'workflow_dispatch' && github.inputs.release_description || format('ChodeMantra Release {0}', github.ref) }}
-          prerelease: ${{ github.event_name == 'workflow_dispatch' && github.inputs.prerelease || false }}
+          prerelease: ${{ github.event..inputs.prerelease || false }}
           draft: false
 
       - name: Upload Normal .exe
@@ -103,8 +107,8 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: ./dist/Chodemantra Setup ${{ github.event_name == 'workflow_dispatch' && github.inputs.tag_name || github.ref_name }}.exe
-          asset_name: Chodemantra Setup ${{ github.event_name == 'workflow_dispatch' && github.inputs.tag_name || github.ref_name }}.exe
+          asset_path: ./dist/Chodemantra Setup ${{ env.PACKAGE_VERSION }}.exe
+          asset_name: Chodemantra Setup ${{ env.PACKAGE_VERSION }}.exe
           asset_content_type: application/octet-stream
 
       - name: Upload Python-Embedded .exe
