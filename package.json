@@ -1,12 +1,13 @@
 {
   "name": "chodemantra",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "main": "index.js",
   "type": "module",
   "scripts": {
     "start": "electron .",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dist": "electron-builder"
+    "dist": "electron-builder",
+    "postinstall": "electron-builder install-app-deps"
   },
   "keywords": [],
   "author": "ShadowVar",
@@ -24,6 +25,9 @@
   "build": {
     "appId": "com.Chodemantra.app",
     "productName": "Chodemantra",
+    "files": [
+      "**/*"
+    ],
     "directories": {
       "output": "dist"
     },
