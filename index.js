@@ -32,13 +32,28 @@ function findPythonExecutable() {
     for (const cmd of pythonCandidates) {
         try {
             execSync(`${cmd} --version`, { stdio: 'ignore' });
-            logAction(`Found Python executable: ${cmd}`);
-            return cmd;
+            // Check for pyautogui
+            try {
+                execSync(`${cmd} -c "import pyautogui"`, { stdio: 'ignore' });
+                logAction(`Found Python executable with pyautogui: ${cmd}`);
+                return cmd;
+            } catch (pyautoguiError) {
+                logAction(`Python found but pyautogui missing for ${cmd}`);
+                dialog.showErrorBox(
+                    'PyAutoGUI Not Found',
+                    'Python is installed, but the pyautogui module is missing. Please install it by running: pip install pyautogui'
+                );
+                return null;
+            }
         } catch (error) {
             continue;
         }
     }
     logAction('Python executable not found in system PATH');
+    dialog.showErrorBox(
+        'Python Not Found',
+        'Python is not found in your system PATH. Please install Python 3.8+ and add it to your PATH. Visit https://www.python.org/downloads/ for instructions. Also, install pyautogui by running: pip install pyautogui'
+    );
     return null;
 }
 
@@ -312,7 +327,7 @@ app.whenReady().then(() => {
     if (!pythonCmd) {
         dialog.showErrorBox(
             'Python Not Found',
-            'Python is not found in your system PATH. Please install Python and add it to your system PATH to use this app. Visit https://www.python.org/downloads/ for installation instructions.'
+            'Python is not found in your system PATH. Please install Python 3.8+ and add it to your PATH. Visit https://www.python.org/downloads/ for instructions. Also, install pyautogui by running: pip install pyautogui'
         );
         logAction('App startup aborted due to missing Python.');
         app.quit();
